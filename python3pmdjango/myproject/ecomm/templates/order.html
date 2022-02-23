@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %}order{% endblock title %}order
+{% block content %}
+<h1>Order details :-</h1>
+<div class="container">
+
+    <table class = "table">
+        <tr>
+            <th>S No.</th>
+            <th>product Image</th>
+            <th>Product Name</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>Total.Price</th>
+            <th>Date of product
+
+            </th>
+            <th>status</th>
+        </tr>
+        {% for cart in ord_dtls %}
+        
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><img src="{{cart.product.image.url}}" alt="" width="100" height= "100"></td>
+            <td>{{cart.product.name}}</td>
+            <td>{{cart.price}}</td>
+            <td>{{cart.quantity}}</td>
+            <td>{{cart.price|multiplyprice:cart.quantity}}</td>
+            <td>{{cart.date}}</td>
+             {% if cart.status %}
+             <td><span class="badge bg-success">order succes</span></td>
+
+             {% else %}
+             
+             <td><span class="badge bg-warning">pending</span></td>
+             
+             
+             
+             {% endif %}
+            
+            
+        </tr>
+        {% endfor %}
+        <tfoot>
+            <tr>
+                <td>Total.Price</td>
+                <td>{{ord_dtls|grand_total:request.session.cart}}</td>
+            </tr>
+        </tfoot>
+            <tr align = "center">
+                <th colspan =5 >Total Pay</th>
+                <th>{{tp}}</th>
+                <th> 
+            
+
+        
+
+        
+            
+
+    </table>
+
+
+
+
+
+
+    {% endblock content %}
+   
+    
